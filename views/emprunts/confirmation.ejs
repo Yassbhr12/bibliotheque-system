@@ -1,0 +1,19 @@
+<div class="confirmation-container">
+    <%- include('../partials/navbar') %>
+    <div class="confirmation-page">
+        <h2>Confirmation d'emprunt</h2>
+        <p>Vous êtes sur le point d'emprunter l'exemplaire suivant :</p>
+        <ul>
+            <li><strong>Titre :</strong> <%= doc.titre %></li>
+            <li><strong>Numéro d'ordre :</strong> <%= exemplaire.numero_ordre %></li>
+            <li><strong>État :</strong> <%= exemplaire.etat %></li>
+            <li><strong>Statut actuel :</strong> <%= exemplaire.statut %></li>
+        </ul>
+        <form action="/documents/valider" method="POST">
+            <input type="hidden" name="user_id" value="<%= user.id %>">
+            <input type="hidden" name="exemplaire_id" value="<%= exemplaire.id %>">
+            <button type="submit" class="btn btn-success">Confirmer l'emprunt</button>
+        </form>
+        <a href="/documents/details/<%= doc.id %>" class="btn btn-secondary">Annuler</a>
+    </div>
+</div>

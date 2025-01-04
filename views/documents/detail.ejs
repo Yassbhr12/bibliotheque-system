@@ -1,0 +1,71 @@
+<div class="details-container">
+    <%- include('../partials/navbar') %>
+    <div class="details-page">
+        <div class="details-card">
+
+            <div class="divImg">
+                <img src="/<%= doc.titre %>.jpeg" alt="<%= doc.titre %>">
+            </div>
+
+            <div class="details-info">
+                <h2>Détails du Document</h2>
+                <ul style="list-style: none;">
+                    <li><span>Titre :</span> <%= doc.titre %></li>
+                    <li><span>Thème :</span> <%= doc.theme %></li>
+                    <li><span>Année de publication :</span> <%= doc.annee_publication %></li>
+                    <li><span>Éditeur :</span> <%= doc.editeur %></li>
+                    <li><span>Référence :</span> <%= doc.reference %></li>
+
+                    <% if (doc.type === 'livre') { %>
+                        <li><span>Auteur :</span> <%= doc.auteur %></li>
+                        <li><span>ISBN :</span> <%= doc.isbn %></li>
+                    <% } else { %>
+                        <li><span>Volume :</span> <%= doc.volume %></li>
+                        <li><span>Numéro :</span> <%= doc.numero %></li>
+                        <li><span>ISSN :</span> <%= doc.issn %></li>
+                    <% } %>
+                </ul>
+            </div>
+
+            <h3>Exemplaires disponibles</h3>
+            <% if (exemplaires.length > 0) { %>
+                <table class="table-exemplaires">
+                    <thead>
+                        <tr>
+                            <th>Numéro d'ordre</th>
+                            <th>Date d'achat</th>
+                            <th>État</th>
+                            <th>Statut</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% exemplaires.forEach(exemplaire => { %>
+                            <tr>
+                                <td><%= exemplaire.numero_ordre %></td>
+                                <td><%= exemplaire.date_achat.toISOString().split('T')[0] %></td>
+                                <td><%= exemplaire.etat %></td>
+                                <td><%= exemplaire.statut %></td>
+                                <td>
+                                    <% if (exemplaire.statut === 'en rayon') { %>
+                                        <a href="/documents/confirmation/<%= exemplaire.id %>"  class="btn btn-primary">
+                                            Emprunter
+                                        </a>
+                                    <% } else { %>
+                                        <span class="text-muted">Non disponible</span>
+                                    <% } %>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            <% } else { %>
+                <p>Aucun exemplaire disponible pour ce document.</p>
+            <% } %>
+
+            <div class="Count-button">
+                <a href="/documents" class="details-button">🔙 Retour aux documents</a>
+            </div>
+        </div>
+    </div>
+</div>

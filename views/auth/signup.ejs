@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body class="signup-page">
+    <div class="form-container">
+        <h2>Inscription</h2>
+        <% if (typeof error !== 'undefined' && error) { %>
+            <p style="color: red;"><%= error %></p>
+        <% } %>
+        <form action="/auth/signup" method="POST">
+            <input name="name" type="text" class="feedback-input" placeholder="Nom" required />
+            <input name="lastname" type="text" class="feedback-input" placeholder="Prénom" required />
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Mot de passe" required>
+            <div class="input-group">
+                <label for="categorie">Catégorie d'utilisateur</label>
+                <select name="categorie" id="categorie" required>
+                    <option value="occasionnel">Utilisateur occasionnel</option>
+                    <option value="abonne">Abonné</option>
+                    <option value="privilegie">Abonné privilégié</option>
+                </select>
+            </div>
+            <button type="submit">S'inscrire</button>
+        </form>
+        <p>Déjà inscrit ? <a href="/auth/login">Se connecter</a></p>
+    </div>
+</body>
+</html>

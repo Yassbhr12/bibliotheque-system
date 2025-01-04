@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliothèque - Dashboard Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/Dashboard.css">
+    <style>
+        .popular-documents {
+            margin: 3rem auto;
+            padding: 2.5rem;
+            background: linear-gradient(to bottom right, #ffffff, #f8fafc);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            max-width: 1200px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            color: #1e293b;
+            font-size: 2rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: #2563eb;
+            border-radius: 2px;
+        }
+        
+        .popular-documents-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+        
+        .document-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .document-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+        
+        .document-info h3 {
+            font-size: 1.25rem;
+            color: #2563eb;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        
+        .document-info p {
+            color: #475569;
+            font-size: 0.95rem;
+            margin: 0.75rem 0;
+            padding: 0.5rem;
+            background: #f8fafc;
+            border-radius: 6px;
+            transition: background 0.2s ease;
+        }
+        
+        .document-info p:hover {
+            background: #f1f5f9;
+        }
+        
+        @media (max-width: 768px) {
+            .popular-documents {
+                padding: 1.5rem;
+                margin: 2rem 1rem;
+            }
+        
+            .section-header h2 {
+                font-size: 1.75rem;
+            }
+        
+            .document-card {
+                padding: 1.25rem;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-book-reader"></i> <span>Bibliothèque</span></h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="/admin"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+                    <li><a href="/admin/users"><i class="fas fa-users"></i> <span>Utilisateurs</span></a></li>
+                    <li><a href="/admin/documents"><i class="fas fa-book"></i> <span>Documents</span></a></li>
+                    <li><a href="/admin/exemplaires"><i class="fas fa-book"></i> <span>Exemplaires</span></a></li>
+                    <li><a href="/admin/loans"><i class="fas fa-hand-holding"></i> <span>Emprunts</span></a></li>
+                    <li><a href="/admin/retards"><i class="fas fa-hand-holding"></i> <span>Retards</span></a></li>
+                    <li><a href="/admin/profil"><i class="fas fa-tags"></i> <span>Profil</span></a></li>
+                    <li><a href="/logout" class="logout"><i class="fas fa-sign-out-alt"></i> <span>Déconnexion</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Tableau de bord</h1>
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <%= admin.nom[0] %><%= admin.prenom[0] %>
+                    </div>
+                    <div>
+                        <p>Bienvenue, <strong>Admin</strong></p>
+                        <small><%= admin.nom %> , <%= admin.prenom %></small>
+                    </div>
+                </div>
+            </header>
+
+            <section class="dashboard-cards">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div>
+                            <h3>Utilisateurs</h3>
+                            <p><%= statistique[0].utilisateurs %></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div>
+                            <h3>Documents</h3>
+                            <p><%= statistique[0].documents %></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-hand-holding"></i>
+                        </div>
+                        <div>
+                            <h3>Emprunts actifs</h3>
+                            <p><%= statistique[0].emprunts_en_cours %></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <div>
+                            <h3>Retards</h3>
+                            <p>0</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="popular-documents">
+                <div class="section-header">
+                    <h2>Documents Populaires</h2>
+                </div>
+                <div class="popular-documents-container">
+                    <% populaires.forEach(doc => { %>
+                        <div class="document-card">
+                            <div class="document-info">
+                                <h3><%= doc.titre %></h3>
+                                <p>Type : <%= doc.type %></p>
+                                <p>Éditeur : <%= doc.editeur || "N/A" %></p>
+                                <p>Nombre d'emprunts : <%= doc.nombre_emprunts %></p>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            </section>
+
+            <section class="recent-activity">
+                <div class="activity-header">
+                    <h2>Activités récentes</h2>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Utilisateur</th>
+                            <th>Action</th>
+                            <th>Document</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% activites.forEach(ac=>{ %>
+                            <tr>
+                                <td><%= ac.date_debut %></td>
+                                <td><%= ac.Utilisateur %></td>
+                                <td><%= ac.ex_etat %></td>
+                                <td><%= ac.titre %></td>
+                                <% if(ac.statut === 'en cours') {%>
+                                    <td><span class="status warning">En cours</span></td>
+                                <% } else if (ac.statut === 'retourne'){ %>
+                                    <td><span class="status success">Retourne</span></td>
+                                <%} else{ %>
+                                    <td><span class="status danger">Retard</span></td>
+                                <% } %>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

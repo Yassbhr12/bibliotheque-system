@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Suggestion</title>
+    <style>
+:root {
+    --primary-color: #2c3e50;
+    --primary-light: #34495e;
+    --accent-color: #3498db;
+    --success-color: #2ecc71;
+    --error-color: #e74c3c;
+    --text-color: #333;
+    --text-light: #666;
+    --background-color: #f5f6fa;
+    --white: #ffffff;
+    --border-color: #dcdde1;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    line-height: 1.6;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 20px;
+}
+
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    background-color: var(--white);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px var(--shadow-color);
+}
+
+
+h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+p {
+    color: var(--text-light);
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+legend {
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent-color);
+    width: 100%;
+}
+
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: var(--transition);
+    margin-bottom: 20px;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+
+#livre, #periodique {
+    background-color: var(--background-color);
+    padding: 25px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+
+p[style*="color: red"] {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: var(--error-color);
+    padding: 12px 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+
+.submit-btn {
+    margin-top: 30px;
+}
+
+button[type="submit"] {
+    background-color: var(--accent-color);
+    color: var(--white);
+    padding: 14px 28px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button[type="submit"]:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+}
+
+button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+
+label[for*="theme"]::after,
+label[for*="titre"]::after,
+label[for*="type"]::after,
+label[for*="auteur"]::after {
+    content: " *";
+    color: var(--error-color);
+}
+
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin: 20px;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    legend {
+        font-size: 1.2rem;
+    }
+
+    input[type="text"] {
+        padding: 10px 14px;
+    }
+
+    button[type="submit"] {
+        padding: 12px 24px;
+    }
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+
+:focus {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+
+input:invalid {
+    border-color: var(--error-color);
+}
+
+
+input:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+}
+#type {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: var(--white);
+    color: var(--text-color);
+    transition: var(--transition);
+    cursor: pointer;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"%3E%3Cpath fill="%232c3e50" d="M2 0L0 2h4z" /%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 10px;
+}
+
+#type:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+#type:disabled {
+    background-color: #f5f5f5;
+    color: var(--text-light);
+    cursor: not-allowed;
+}
+
+#type option {
+    font-size: 1rem;
+    padding: 10px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Suggestion d'acquisition</h2>
+        <p>La BnF vous invite à suggérer l'acquisition d'un document absent des collections.</p>
+        <% if (typeof error !== 'undefined' && error) { %>
+            <p style="color: red;"><%= error %></p>
+        <% } %>
+        <form action="/documents/Ajouter" method="POST">
+            <fieldset>
+                <legend>Votre suggestion</legend>
+                <label for="theme">Thème *</label>
+                <input type="text" id="theme" name="theme" required>
+                
+                <label for="titre">Titre *</label>
+                <input type="text" id="titre" name="titre" required>
+                <label for="annee">Année de publication</label>
+                <input type="text" id="annee" name="annee" placeholder="AAAA">
+                <label for="editeur">Éditeur</label>
+                <input type="text" id="editeur" name="editeur">
+                <label for="reference">Référence</label>
+                <input type="text" id="reference" name="reference">
+                <label for="type">Type *</label>
+                <select id="type" name="type" required>
+                    <option value="">choisir un type …</option>
+                    <option value="livre">livre</option>
+                    <option value="periodique">periodique</option>
+                </select>
+
+                <div id="livre" style="display: none;" >
+                    <label for="auteur">Auteur *</label>
+                    <input type="text" id="auteur" name="auteur" >
+                    
+                    <label for="isbn">ISBN</label>
+                    <input type="text" id="isbn" name="isbn">
+                </div>
+                
+                <div id="periodique" style="display: none;" >
+                    <label for="volume">Volume</label>
+                    <input type="text" id="volume" name="volume">
+
+                    <label for="issn">ISSN</label>
+                    <input type="text" id="issn" name="issn">
+                    
+                    <label for="numero">Numéro</label>
+                    <input type="text" id="numero" name="numero">
+                </div>
+            </fieldset>
+            
+            <div class="submit-btn">
+                <button type="submit">Ajouter</button>
+            </div>
+        </form>
+    </div>
+    <script src="/js/ajouter.js"></script>
+</body>
+</html>

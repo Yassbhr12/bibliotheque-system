@@ -1,0 +1,25 @@
+<%- include('partials/navbar') %>
+<section class="about">
+    <h2>contacter votre bibliothèque</h2>
+    <p>Vous souhaitez obtenir des informations supplémentaires, émettre une réclamation, nous faire part de vos suggestions 
+        ou de votre expérience de visite, contactez-nous en complétant ce formulaire.<strong>Nous vous répondrons sous 1 semaine maximum.</strong></p>
+        <form id="feedbackForm" method="POST" action="/contact">
+            <input name="name" type="text" class="feedback-input" placeholder="Nom" required />
+            <input name="lastname" type="text" class="feedback-input" placeholder="Prénom" required />
+            <input name="email" type="email" class="feedback-input" placeholder="Email" required />
+            <input name="phone" type="tel" class="feedback-input" placeholder="Numéro de téléphone" />
+            <textarea name="commentaire" class="feedback-input" placeholder="Commentaire" required></textarea>
+            <input type="submit" value="SUBMIT" class="contact" />
+        </form>
+        <div id="error-message" style="color: red; display: none;">Veuillez remplir tous les champs requis.</div>
+        
+
+    <h3>Autres contacts :</h3>
+    <ul>
+        <li> Tél. 33 (0)1 53 79 59 59 (serveur vocal)</li>
+        <li>Tél. 01 53 79 44 88</li>
+    </ul>
+
+</section>
+<script src="/js/script.js"></script>
+<%- include('partials/footer') %>

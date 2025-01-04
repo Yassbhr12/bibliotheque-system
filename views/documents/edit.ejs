@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Suggestion</title>
+    <link rel="stylesheet" href="/css/ajouter.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Suggestion d'acquisition</h2>
+        <p>La BnF vous invite à suggérer l'acquisition d'un document absent des collections.</p>
+        <% if (typeof error !== 'undefined' && error) { %>
+            <p style="color: red;"><%= error %></p>
+        <% } %>
+        <form action="/documents/edit/<%=doc.id  %>" method="POST">
+            <fieldset>
+                <legend>Votre suggestion</legend>
+                <label for="theme">Thème *</label>
+                <input type="text" id="theme" name="theme" value="<%= doc.theme %>" required>
+                
+                <label for="titre">Titre *</label>
+                <input type="text" id="titre" name="titre" value="<%= doc.titre %>" required>
+                <label for="annee">Année de publication</label>
+                <input type="text" id="annee" name="annee" value="<%= doc.annee_publication %>" >
+                <label for="editeur">Éditeur</label>
+                <input type="text" id="editeur" name="editeur" value="<%= doc.editeur %>" >
+                <label for="reference">Référence</label>
+                <input type="text" id="reference" name="reference" value="<%= doc.reference %>" >
+                <label for="type">Type *</label>
+                <input type="text" id="type" name="type" value="<%= doc.type %>" >
+                
+                <% if(doc.type === 'livre') {%>
+                    <div id="livre"  >
+                        <label for="auteur">Auteur *</label>
+                        <input type="text" id="auteur" name="auteur" value="<%= doc.auteur %>" >
+                        
+                        <label for="isbn">ISBN</label>
+                        <input type="text" id="isbn" name="isbn" value="<%= doc.isbn %>" >
+                    </div>
+                <% }else{ %>    
+                    <div id="periodique"  >
+                        <label for="volume">Volume</label>
+                        <input type="text" id="volume" name="volume" value="<%= doc.volume %>" >
+    
+                        <label for="issn">ISSN</label>
+                        <input type="text" id="issn" name="issn" value="<%= doc.issn %>" >
+                        
+                        <label for="numero">Numéro</label>
+                        <input type="text" id="numero" name="numero" value="<%= doc.numero %>" >
+                    </div>
+                <% } %>
+                
+            </fieldset>
+            
+            <div class="submit-btn">
+                <button type="submit">Modifier</button>
+            </div>
+        </form>
+    </div>
+    
+</body>
+</html>

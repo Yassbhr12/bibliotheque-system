@@ -1,0 +1,60 @@
+<%- include('partials/navbar') %>
+
+<div class="profile-page">
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>Bienvenue, <%= user.prenom %> <%= user.nom %>!</h1>
+            <p class="profile-subtitle">Voici les informations associées à votre compte.</p>
+        </div>
+
+        <div class="profile-card">
+            <h2>Informations personnelles</h2>
+            <ul class="profile-details">
+                <li><strong>Prénom :</strong> <%= user.prenom %></li>
+                <li><strong>Nom :</strong> <%= user.nom %></li>
+                <li><strong>Email :</strong> <%= user.email %></li>
+                <li><strong>Catégorie :</strong> <%= user.categorie %></li>
+                <li><strong>Nombre max d'exemplaires à prêter :</strong> <%= user.exemplaires_max %></li>
+                <li><strong>Durée maximale de prêt :</strong> <%= user.duree_max %> jours</li>
+            </ul>
+            <button class="btn btn-primary">
+                <a href="/profile/modifier" class="btn-link">Modifier mes informations</a>
+            </button>
+        </div>
+
+        <div class="borrowed-documents">
+            <h2>Documents empruntés</h2>            <% if (documents.length > 0) { %>
+            <table class="documents-table">
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Éditeur</th>
+                        <th>Type</th>
+                        <th>Date de début</th>
+                        <th>Date de fin</th>
+                        <th>Etat</th>
+                        <th>Statut</th>
+                        <th>Date de retour</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% documents.forEach(doc => { %>
+                    <tr>
+                        <td><%= doc.titre %></td>
+                        <td><%= doc.editeur %></td>
+                        <td><%= doc.type %></td>
+                        <td><%= doc.date_debut %></td>
+                        <td><%= doc.date_fin %></td>
+                        <td><%= doc.ex_etat %></td>
+                        <td><%= doc.statut %></td>
+                        <td><%= doc.date_retour %></td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+            <% } else { %>
+            <p>Aucun document emprunté pour le moment.</p>
+            <% } %>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,253 @@
+<%- include('partials/navbar') %>
+<div class="header">
+    <div class="title ">
+        <% if(user) {%>
+            <%= user.prenom %> <%= user.nom %>
+        <% } %>
+        <h1>Bienvenue à notre <span >Biblio</span>thèque en ligne</h1>
+        <br>
+        <h3>Explorez plus de <span>50 000 documents</span> et empruntez vos livres préférés</h3>
+       
+        <button type="button" class="btn btn-secondary"><a  href="/documents" class="doc">Explorer les documents</a></button>
+        <br>
+        <p class="discover-text" style="font-size:xx-large">Découvrez un monde plein de connaissances</p>
+    </div>
+</div>
+
+<div class="user-categories">
+    <header>
+        <h1 class="display-4 fw-bold text-body-emphasis">Catégories d'Utilisateurs</h1>
+    </header>
+    <main class="container">
+        <div class="card occasional">
+            <h2>Occasionnel</h2>
+            <p><span class="badge">Nombre maximal d'exemplaires : 1</span></p>
+            <p>Durée maximale : 15 jours</p>
+        </div>
+
+        <div class="card subscriber">
+            <h2>Abonné</h2>
+            <p><span class="badge">Nombre maximal d'exemplaires : 4</span></p>
+            <p>Durée maximale : 30 jours</p>
+        </div>
+
+        <div class="card privileged">
+            <h2>Privilégié</h2>
+            <p><span class="badge">Nombre maximal d'exemplaires : 8</span></p>
+            <p>Durée maximale : 30 jours</p>
+        </div>
+    </main>
+</div>
+
+
+    <div class="text-center mb-6" style="margin-top: 150px; margin-bottom:100px">
+        <h2 class="display-4 fw-bold text-body-emphasis">Explorez Notre Bibliothèque</h2>
+        <p class="lead mb-4">
+            Découvrez un aperçu de notre collection variée de livres et d'espaces de lecture inspirants.
+        </p>
+    </div>
+
+
+
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="/bibl.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="/bibl4.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="/bibl3.jpg" class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      
+    
+      <section class="container py-5" style="margin-top: 90px;">
+        <div class="timeline">
+            
+            <div class="d-flex mb-5">
+                <div class="position-relative me-4">
+                    <div class="timeline-icon bg-secondary text-white rounded-circle p-2">
+                        <span class="visually-hidden">Événement 1</span>
+                    </div>
+                </div>
+                <div>
+                    <time class="text-muted d-block mb-2">Janvier 2024</time>
+                    <h5 class="fw-bold">Lancement du projet</h5>
+                    <p class="mb-3">Début du développement de la plateforme de gestion de bibliothèque, incluant l’analyse des besoins et la définition des fonctionnalités principales.</p>
+                    <a href="#" class="btn btn-outline-primary btn-sm">En savoir plus</a>
+                </div>
+            </div>
+
+           
+            <div class="d-flex mb-5">
+                <div class="position-relative me-4">
+                    <div class="timeline-icon bg-secondary text-white rounded-circle p-2">
+                        <span class="visually-hidden">Événement 2</span>
+                    </div>
+                </div>
+                <div>
+                    <time class="text-muted d-block mb-2">Février 2024</time>
+                    <h5 class="fw-bold">Ajout de la gestion des livres</h5>
+                    <p class="mb-3">Implémentation du module permettant d’ajouter, de modifier et de supprimer des livres, ainsi que la gestion des catégories et des auteurs.</p>
+                </div>
+            </div>
+
+            
+            <div class="d-flex mb-5">
+                <div class="position-relative me-4">
+                    <div class="timeline-icon bg-secondary text-white rounded-circle p-2">
+                        <span class="visually-hidden">Événement 3</span>
+                    </div>
+                </div>
+                <div>
+                    <time class="text-muted d-block mb-2">Mars 2024</time>
+                    <h5 class="fw-bold">Mise en place du système de prêt</h5>
+                    <p class="mb-3">Développement des fonctionnalités liées aux prêts de livres : enregistrement des emprunts, gestion des délais et retours.</p>
+                </div>
+            </div>
+
+            
+            <div class="d-flex">
+                <div class="position-relative me-4">
+                    <div class="timeline-icon bg-secondary text-white rounded-circle p-2">
+                        <span class="visually-hidden">Événement 4</span>
+                    </div>
+                </div>
+                <div>
+                    <time class="text-muted d-block mb-2">Avril 2024</time>
+                    <h5 class="fw-bold">Finalisation et lancement</h5>
+                    <p class="mb-3">Tests finaux, correction des bugs et déploiement de la plateforme pour une utilisation en production.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <header style="margin-left: 400px; margin-bottom: 60px; margin-top: 60px;">
+        <h2 class="display-5 fw-bold text-body-emphasis" sty>Découvrez nos documents les plus populaires !</h2>
+    </header>
+    <div class="Container" style="margin-bottom: 300px;    display: flex;
+    flex-wrap: wrap; /* Permet de passer à la ligne si nécessaire */
+    gap: 20px; /* Espacement entre les cartes */
+    justify-content: center;">
+            
+            <% documents.forEach(doc=>{ %>
+                <div id="list-th" style="flex: 1 1 calc(33.333% - 20px); /* Ajuste la taille pour trois cartes par ligne */
+    max-width: calc(33.333% - 20px); /* Garde la largeur fixe */
+    box-sizing: border-box;">
+                    <div class="Book Read">
+                        <div class="coverD">
+                            <img src="/<%= doc.titre %>.jpeg">
+                        </div>
+                        <div class="Description">
+                            <p class="Title"><%= doc.type %> : <%= doc.titre %><br>
+                                    <span class="Author"> <%= doc.editeur %></span>
+                            </p>
+                            
+                        </div>
+                        <div class="buttons">
+                            <button class="btnd details">
+                                <a href="/documents" class="btnLink">Détails</a>
+                            </button>      
+                        </div>
+      
+                    </div>
+                    
+                </div>
+            <% }); %>
+            <p class="featured-description">
+      Ces titres se distinguent par leur popularité auprès de nos utilisateurs. Que ce soit un roman captivant, un ouvrage de référence incontournable, ou encore une publication périodique enrichissante, ces documents sont les plus empruntés et appréciés.
+  
+      Explorez cette sélection qui reflète les goûts et intérêts variés de notre communauté et trouvez l'inspiration pour votre prochaine lecture ou consultation !
+  </p>
+  
+        </div>
+        <div class="reviews-section">
+            <div class="reviews-container">
+                <header class="reviews-header">
+                    <h1 class="display-4 fw-bold text-body-emphasis">Avis des Lecteurs</h1>
+                    <p>Découvrez ce que pensent nos utilisateurs de la bibliothèque</p>
+                </header>
+                <div class="reviews-grid">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="user-avatar">YB</div>
+                            <div class="user-info">
+                                <h3>Yassine Bahra</h3>
+                                <div class="review-date">12 janvier 2024</div>
+                            </div>
+                        </div>
+                        <div class="stars">★★★★★</div>
+                        <div class="book-title">Les Misérables - Victor Hugo</div>
+                        <p class="review-content">
+                            Excellent service! Le livre était en parfait état et le personnel très aimable.
+                            Je recommande vivement cette bibliothèque.
+                        </p>
+                        <div class="review-footer">
+                            <span>Lu en 7 jours</span>
+                            <span>📚 Membre depuis 2023</span>
+                        </div>
+                    </div>
+                
+                    
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="user-avatar">AH</div>
+                            <div class="user-info">
+                                <h3>Aymen Hajry</h3>
+                                <div class="review-date">5 février 2024</div>
+                            </div>
+                        </div>
+                        <div class="stars">★★★★☆</div>
+                        <div class="book-title">Le Petit Prince - Antoine de Saint-Exupéry</div>
+                        <p class="review-content">
+                            Une très bonne expérience, bien que le délai d'attente pour récupérer le livre soit un peu long.
+                            Mais dans l'ensemble, je suis satisfait.
+                        </p>
+                        <div class="review-footer">
+                            <span>Lu en 14 jours</span>
+                            <span>📚 Membre depuis 2021</span>
+                        </div>
+                    </div>
+                
+            
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="user-avatar">SH</div>
+                            <div class="user-info">
+                                <h3>Saad Moustahy</h3>
+                                <div class="review-date">20 mars 2024</div>
+                            </div>
+                        </div>
+                        <div class="stars">★★★★★</div>
+                        <div class="book-title">Harry Potter à l'école des sorciers - J.K. Rowling</div>
+                        <p class="review-content">
+                            J'adore cette bibliothèque ! Le personnel est toujours accueillant et les livres sont en parfait état.
+                            Merci pour ce merveilleux service !
+                        </p>
+                        <div class="review-footer">
+                            <span>Lu en 10 jours</span>
+                            <span>📚 Membre depuis 2020</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<%- include('partials/footer') %>

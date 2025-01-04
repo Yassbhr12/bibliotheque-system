@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du Document (Admin)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/Dashboard.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #2c3e50;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .content h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .details-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .details-item:last-child {
+            border-bottom: none;
+        }
+
+        .details-item span {
+            font-weight: bold;
+        }
+
+        .actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #1abc9c;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #159b84;
+        }
+
+        .btn-secondary {
+            background-color: #e9ecef;
+            color: #2c3e50;
+        }
+
+        .btn-secondary:hover {
+            background-color: #dde1e4;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .table-exemplaires {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .table-exemplaires th, .table-exemplaires td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .table-exemplaires th {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        .text-muted {
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-book-reader"></i> <span>Bibliothèque</span></h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="/admin"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+                    <li><a href="/admin/users"><i class="fas fa-users"></i> <span>Utilisateurs</span></a></li>
+                    <li><a href="/admin/documents"><i class="fas fa-book"></i> <span>Documents</span></a></li>
+                    <li><a href="/admin/loans"><i class="fas fa-hand-holding"></i> <span>Emprunts</span></a></li>
+                    <li><a href="/admin/categories"><i class="fas fa-tags"></i> <span>Catégories</span></a></li>
+                    <li><a href="/admin/settings"><i class="fas fa-cog"></i> <span>Paramètres</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="container">
+            <div class="header">
+                <h1>Détails du Document</h1>
+            </div>
+            <div class="content">
+                <h2><%= document.titre %></h2>
+                <div class="details">
+                    <div class="details-item">
+                        <span>Type :</span>
+                        <span><%= document.type %></span>
+                    </div>
+                    <% if (document.type === 'livre') { %>
+                        <div class="details-item">
+                            <span>Auteur :</span>
+                            <span><%= document.auteur %></span>
+                        </div>
+                    <% } %>
+                    <div class="details-item">
+                        <span>Catégorie :</span>
+                        <span><%= document.theme %></span>
+                    </div>
+                    <div class="details-item">
+                        <span>Année de publication :</span>
+                        <span><%= document.annee_publication %></span>
+                    </div>
+                    <div class="details-item">
+                        <span>Éditeur :</span>
+                        <span><%= document.editeur %></span>
+                    </div>
+                    <div class="details-item">
+                        <span>Référence :</span>
+                        <span><%= document.reference %></span>
+                    </div>
+                    <% if (document.type === 'livre') { %>
+                        <div class="details-item">
+                            <span>ISBN :</span>
+                            <span><%= document.isbn %></span>
+                        </div>
+                    <% } else { %>
+                        <div class="details-item">
+                            <span>Volume :</span>
+                            <span><%= document.volume %></span>
+                        </div>
+                        <div class="details-item">
+                            <span>Numéro :</span>
+                            <span><%= document.numero %></span>
+                        </div>
+                        <div class="details-item">
+                            <span>ISSN :</span>
+                            <span><%= document.issn %></span>
+                        </div>
+                    <% } %>
+                </div>
+
+                <h3>Exemplaires disponibles</h3>
+                <% if (exemplaires.length > 0) { %>
+                    <table class="table-exemplaires">
+                        <thead>
+                            <tr>
+                                <th>Numéro d'ordre</th>
+                                <th>Date d'achat</th>
+                                <th>État</th>
+                                <th>Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% exemplaires.forEach(exemplaire => { %>
+                                <tr>
+                                    <td><%= exemplaire.numero_ordre %></td>
+                                    <td><%= exemplaire.date_achat.toISOString().split('T')[0] %></td>
+                                    <td><%= exemplaire.etat %></td>
+                                    <td><%= exemplaire.statut %></td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                <% } else { %>
+                    <p>Aucun exemplaire disponible pour ce document.</p>
+                <% } %>
+                <% if (admin.role ==='principal'){ %>
+                    <div class="actions">
+                        <a href="/admin/edit/<%= document.id %>" class="btn btn-secondary" style="text-decoration:none">
+                            <i class="fas fa-edit"></i> Modifier
+                        </a>
+                        <form action="/admin/delete/<%= document.id %>" method="POST">
+                            <button type="submit" class="btn btn-danger" onclick=
+                            "return confirm('Voulez-vous vraiment supprimer ce document ?');">
+                                🗑️ Supprimer
+                            </button>
+                        </form>
+                    </div>
+                <% } %>
+                <button class="btn btn-primary" onclick="window.location.href='/admin/documents';" style="margin-top: 60px;">
+                    <i class="fas fa-arrow-left"></i> Retour aux documents
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

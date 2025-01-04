@@ -1,0 +1,137 @@
+<%- include('../partials/navbar') %>
+<% if (typeof user === 'undefined' || user === null) { %>
+    <div style="
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    background-color: #f8f9fa;
+    color: #333;
+    font-family: Arial, sans-serif;
+">
+    <h1 style="font-size: 2.5rem; margin-bottom: 20px;">Accès Restreint</h1>
+    <p style="font-size: 1.2rem; margin-bottom: 30px;">
+        Vous devez vous <strong>connecter</strong> pour accéder aux documents.
+    </p>
+    <a href="/login" style="
+        display: inline-block;
+        text-decoration: none;
+        color: white;
+        background-color: #007bff;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+    " onmouseover="this.style.backgroundColor='#0056b3'" 
+       onmouseout="this.style.backgroundColor='#007bff'">
+        Se Connecter
+    </a>
+</div>
+<%- include('../partials/footer') %>
+<% } else { %>
+    <div id="large-th">
+        
+        <h1> Liste des documents </h1>
+        <br>
+        
+        <form action="/documents/recherche" method="GET">
+            <div class="search-container">
+                <select id="search-criteria" name="critere">
+                    <option value="tout">Tout</option>
+                    <option value="type">Type</option>
+                    <option value="theme">Thème</option>
+                    <option value="titre">Titre</option>
+                    <option value="editeur">Éditeur</option>
+                    <option value="auteur">Auteur</option>
+                </select>
+            
+                <input
+                    type="text"
+                    id="search-input"
+                    name="contenu"
+                    placeholder="Rechercher..."
+                    required
+                />
+            
+                <button id="search-button" type="submit">
+                    Rechercher
+                 </button>
+            </div>
+        </form>
+
+        
+        <div class="choose">
+            
+            <a href="#list-th"><i class="fa fa-th-list" aria-hidden="true"></i></a>
+            <a href="#large-th"><i class="fa fa-th-large" aria-hidden="true"></i></a>
+        </div>
+        
+        <div class="Container" style="margin-bottom: 300px;">
+            
+            <% if (documents.length > 0) { %>
+                <% documents.forEach(doc=>{ %>
+                    <div id="list-th">
+                        <div class="Book Read">
+                            <div class="coverD">
+                                <img src="/<%= doc.titre %>.jpeg">
+                            </div>
+                            <div class="Description">
+                                <p class="Title"><%= doc.type %> : <%= doc.titre %><br>
+                                    <% if (doc.type === 'livre') { %>
+                                        <span class="Author"> <%= doc.auteur %></span>
+                                    <% } else { %>
+                                        <span class="Author">Volume : <%= doc.volume %></span>
+                                    <% } %>
+                                </p>
+                                
+                            </div>
+                            <div class="buttons">
+                                <button class="btnd details">
+                                    <a href="/documents/details/<%=doc.id %>" class="btnLink">Détails</a>
+                                </button>      
+                            </div>
+          
+                        </div>
+                        
+                    </div>
+                <% }); %>
+            </div>
+    </div>
+    <%- include('../partials/footer') %>
+            <% } else{ %>
+                <div style="display: flex; justify-content:center; margin-left : 300px ">
+                    <h1>Aucun document trouvé</h1>
+                </div>
+                
+                <% } %>
+
+<% } %>
+
+<script>
+const searchCriteria = document.getElementById('search-criteria');
+const searchInput = document.getElementById('search-input');
+
+
+searchCriteria.addEventListener('change', (e) => {
+    const value = e.target.value;
+
+    if (value === 'titre') {
+        searchInput.placeholder = 'Rechercher par titre...';
+    } else if (value === 'auteur') {
+        searchInput.placeholder = 'Rechercher par auteur...';
+    } else if (value === 'editeur') {
+        searchInput.placeholder = 'Rechercher par editeur...';
+    } else if (value === 'theme') {
+        searchInput.placeholder = 'Rechercher par thème...';
+    } else if(value === 'type'){
+        searchInput.placeholder = 'type(livre ou periodique)';
+    }
+     else {
+        searchInput.placeholder = 'Rechercher...';
+    }
+});
+</script>
+

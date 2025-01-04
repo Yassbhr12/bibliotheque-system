@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paramètres - Bibliothèque</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/Dashboard.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #1abc9c;
+            --danger-color: #e74c3c;
+            --warning-color: #f1c40f;
+            --success-color: #2ecc71;
+            --text-light: #ecf0f1;
+            --text-dark: #2c3e50;
+            --background-light: #f4f4f9;
+            --card-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 20px 30px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .page-header h1 {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .page-header h1 i {
+            color: var(--accent-color);
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .settings-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            padding: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .settings-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .settings-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .settings-header i {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .settings-header h2 {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+        }
+
+        .settings-group {
+            margin-bottom: 20px;
+        }
+
+        .settings-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .setting-item {
+            margin-bottom: 15px;
+        }
+
+        .setting-item label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .setting-item input[type="text"],
+        .setting-item input[type="email"],
+        .setting-item input[type="number"],
+        .setting-item select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: var(--background-light);
+            transition: all 0.3s ease;
+        }
+
+        .setting-item input:focus,
+        .setting-item select:focus {
+            border-color: var(--accent-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.2);
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        .toggle-switch input:checked + .toggle-slider {
+            background-color: var(--accent-color);
+        }
+
+        .toggle-switch input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+
+        .setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .setting-row label {
+            font-weight: 500;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 188, 156, 0.2);
+        }
+
+        .help-text {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 80px;
+            }
+
+            .main-content {
+                margin-left: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-book-reader"></i> <span>Bibliothèque</span></h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="/admin"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+                    <li><a href="/admin/users"><i class="fas fa-users"></i> <span>Utilisateurs</span></a></li>
+                    <li><a href="/admin/documents"><i class="fas fa-book"></i> <span>Documents</span></a></li>
+                    <li><a href="/admin/loans"><i class="fas fa-hand-holding"></i> <span>Emprunts</span></a></li>
+                    <li><a href="/admin/profil"><i class="fas fa-tags"></i> <span>Profil</span></a></li>
+                    <li><a href="/admin/settings"><i class="fas fa-cog"></i> <span>Paramètres</span></a></li>
+                    <li><a href="/logout" class="logout"><i class="fas fa-sign-out-alt"></i> <span>Déconnexion</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <div class="page-header">
+                <h1><i class="fas fa-cog"></i> Paramètres</h1>
+            </div>
+
+            <div class="settings-grid">
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <i class="fas fa-sliders-h"></i>
+                        <h2>Paramètres Généraux</h2>
+                    </div>
+                    <div class="settings-group">
+                        <div class="setting-item">
+                            <label>Nom de la bibliothèque</label>
+                            <input type="text" value="Bibliothèque Centrale">
+                        </div>
+                        <div class="setting-item">
+                            <label>Email de contact</label>
+                            <input type="email" value="contact@bibliotheque.fr">
+                        </div>
+                        <div class="setting-row">
+                            <label>Notifications par email</label>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <i class="fas fa-book"></i>
+                        <h2>Paramètres d'emprunt</h2>
+                    </div>
+                    <div class="settings-group">
+                        <div class="setting-item">
+                            <label>Durée maximum par défaut (jours)</label>
+                            <input type="number" value="15">
+                        </div>
+                        <div class="setting-item">
+                            <label>Nombre maximum d'emprunts simultanés</label>
+                            <input type="number" value="1">
+                        </div>
+                        <div class="setting-row">
+                            <label>Autoriser les réservations</label>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <i class="fas fa-bell"></i>
+                        <h2>Notifications</h2>
+                    </div>
+                    <div class="settings-group">
+                        <div class="setting-row">
+                            <label>Rappels de retour</label>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-row">
+                            <label>Notifications de réservation</label>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>Délai de rappel (jours avant échéance)</label>
+                            <input type="number" value="2">
+                            <span class="help-text">Nombre de jours avant l'échéance pour envoyer un rappel</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <i class="fas fa-shield-alt"></i>
+                        <h2>Sécurité</h2>
+                    </div>
+                    <div class="settings-group">
+                        <div class="setting-row">
+                            <label>Authentification à deux facteurs</label>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>Durée de session (heures)</label>
+                            <input type="number" value="24">
+                            <span class="help-text">Durée avant déconnexion automatique</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Enregistrer les modifications
+                </button>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

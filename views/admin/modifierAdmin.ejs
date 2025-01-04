@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/Dashboard.css">
+    <title>Modifier le Profil</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #1abc9c;
+            --danger-color: #e74c3c;
+            --text-light: #ecf0f1;
+            --text-dark: #2c3e50;
+            --background-light: #f4f4f9;
+            --card-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 20px 30px;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .form-container h2 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            font-size: 1rem;
+            background-color: var(--background-light);
+        }
+
+        .form-group input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .form-actions {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn-submit {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #159b84;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 188, 156, 0.2);
+        }
+
+        .btn-cancel {
+            background-color: var(--danger-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cancel:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-book-reader"></i> <span>Bibliothèque</span></h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="/admin"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+                    <li><a href="/admin/users"><i class="fas fa-users"></i> <span>Utilisateurs</span></a></li>
+                    <li><a href="/admin/documents"><i class="fas fa-book"></i> <span>Documents</span></a></li>
+                    <li><a href="/admin/loans"><i class="fas fa-hand-holding"></i> <span>Emprunts</span></a></li>
+                    <li><a href="/admin/profil"><i class="fas fa-tags"></i> <span>Profil</span></a></li>
+                    <li><a href="/logout" class="logout"><i class="fas fa-sign-out-alt"></i> <span>Déconnexion</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <div class="main-content">
+            <div class="form-container">
+                <h2>Modifier le Profil</h2>
+                <form action="/admin/profil/modifier" method="POST">
+                    <div class="form-group">
+                        <label for="nom">Nom</label>
+                        <input type="text" id="nom" name="nom" placeholder="Votre nom" value="<%= admin.nom %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="prenom">Prénom</label>
+                        <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" value="<%= admin.prenom %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Votre email" value="<%= admin.email %>">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-submit">Enregistrer</button>
+                        <button type="button" class="btn-cancel" onclick="window.location.href='/admin/profil';">Annuler</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

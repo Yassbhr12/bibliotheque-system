@@ -1,0 +1,37 @@
+<%- include('partials/navbar') %>
+
+<div class="profile-update-page">
+    <div class="container mt-5">
+        <h1>Modifier le Profile</h1>
+        <hr>
+        <div class="alert alert-warning alert-dismissable">
+            <a class="panel-close close" data-dismiss="alert">×</a> 
+            <i class="fa fa-exclamation-triangle"></i>
+            <strong>Attention :</strong> Veuillez procéder avec soin lors de la modification pour éviter toute erreur.
+        </div>
+
+        <h3>Information Personnelle</h3>
+        <form action="/profile/update" method="POST">
+            <div class="form-group mb-3">
+                <label for="nom" class="modifier">Nom</label>
+                <input type="text" class="form-control" id="nom" name="nom" value="<%= user.nom %>" required>
+            </div>
+            <div class="form-group mb-3">
+                <label for="prenom">Prénom</label>
+                <input type="text" class="form-control" id="prenom" name="prenom" value="<%= user.prenom %>" required>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label for="email" class="modifier">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="<%= user.email %>" required>
+            </div>
+            <div class="form-group mb-3">
+                <label for="password" class="modifier">Nouveau Mot de Passe</label>
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
+            <button type="submit" class="button save-button">Enregistrer les modifications</button>
+            <button class="button cancel-button">Cancel</button>
+        </form>
+        <hr>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "bibliotheque-system",
+			"path": "../.."
+		},
+		{
+			"name": "Dicee Game",
+			"path": "../../../Dicee Game"
+		}
+	],
+	"settings": {}
+}

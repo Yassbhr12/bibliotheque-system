@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliothèque - Gestion des Documents</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #1abc9c;
+            --danger-color: #e74c3c;
+            --warning-color: #f1c40f;
+            --success-color: #2ecc71;
+            --text-light: #ecf0f1;
+            --text-dark: #2c3e50;
+            --background-light: #f4f4f9;
+            --card-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 25px;
+            text-align: center;
+            background-color: var(--secondary-color);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-nav {
+            padding: 20px 0;
+            flex-grow: 1;
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+        }
+
+        .sidebar-nav ul li {
+            margin: 5px 15px;
+        }
+
+        .sidebar-nav ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-nav ul li a:hover {
+            background-color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .sidebar-nav ul li a i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 20px 30px;
+        }
+
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .filter-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-item label {
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .filter-item input,
+        .filter-item select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .filter-item input:focus,
+        .filter-item select:focus {
+            border-color: var(--accent-color);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn i {
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #159b84;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: #e9ecef;
+            color: var(--text-dark);
+        }
+
+        .btn-secondary:hover {
+            background-color: #dde1e4;
+        }
+
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .document-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .document-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .document-image {
+            height: 200px;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .document-image i {
+            font-size: 4rem;
+            color: var(--primary-color);
+            opacity: 0.5;
+        }
+
+        .document-details {
+            padding: 20px;
+        }
+
+        .document-type {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .type-book {
+            background-color: rgba(26, 188, 156, 0.1);
+            color: #16a085;
+        }
+
+        .type-magazine {
+            background-color: rgba(155, 89, 182, 0.1);
+            color: #8e44ad;
+        }
+
+        .type-thesis {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: #2980b9;
+        }
+
+        .document-details h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .document-details p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .tag {
+            background-color: #f8f9fa;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+        }
+
+        .availability {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+
+        .availability i {
+            font-size: 1.1rem;
+        }
+
+        .availability.available {
+            color: var(--success-color);
+        }
+
+        .availability.borrowed {
+            color: var(--warning-color);
+        }
+
+        .availability.reserved {
+            color: var(--danger-color);
+        }
+
+        .document-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .document-actions .btn {
+            flex: 1;
+            justify-content: center;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 40px;
+        }
+
+        .page-btn {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn:hover {
+            background-color: #f8f9fa;
+        }
+
+        .page-btn.active {
+            background-color: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        @media (max-width: 1200px) {
+            .documents-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 80px;
+            }
+
+            .sidebar-header h2 span,
+            .sidebar-nav ul li a span {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 80px;
+            }
+
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .documents-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-book-reader"></i> <span>Bibliothèque</span></h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="/admin"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+                    <li><a href="/admin/users"><i class="fas fa-users"></i> <span>Utilisateurs</span></a></li>
+                    <li><a href="/admin/documents"><i class="fas fa-book"></i> <span>Documents</span></a></li>
+                    <li><a href="/admin/exemplaires"><i class="fas fa-book"></i> <span>Exemplaires</span></a></li>
+                    <li><a href="/admin/loans"><i class="fas fa-hand-holding"></i> <span>Emprunts</span></a></li>
+                    <li><a href="/admin/retards"><i class="fas fa-tags"></i> <span>Retards</span></a></li>
+                    <li><a href="/admin/profil"><i class="fas fa-tags"></i> <span>Profil</span></a></li>
+                    <li><a href="/logout" class="logout"><i class="fas fa-sign-out-alt"></i> <span>Déconnexion</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Gestion des Documents</h1>
+                <% if (admin.role ==='principal'){ %>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        <a  href="/admin/documents/Ajouter" style="text-decoration: none; color :white">Nouveau Document</a>
+                        
+                    </button>
+                <% } %>
+            </header>
+
+            <form action="/admin/documents/search" method="GET">
+                <section class="filter-section">
+                    <div class="filter-grid">
+                        <div class="filter-item">
+                            <label>Rechercher</label>
+                            <input type="text" name="contenu" placeholder="Titre, auteur, ISBN...">
+                        </div>
+                        <div class="filter-item">
+                            <label>Type</label>
+                            <select name="type">
+                                <option value="tout">Tous les types</option>
+                                <option value="livre">Livre</option>
+                                <option value="periodique">Periodique</option>
+                            </select>
+                        </div>
+                        <div class="filter-item">
+                            <label>Catégorie</label>
+                            <select name="theme">
+                                <option value="tout">Toutes les themes</option>
+                                <% themes.forEach(t=>{ %>
+                                    <option value="<%= t.theme %>"><%= t.theme %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-search"></i>
+                            Rechercher
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-redo"></i>
+                            Réinitialiser
+                        </button>
+                    </div>
+                </section>
+            </form>
+            
+
+            <section class="documents-grid">
+                <% documents.forEach(doc=>{ %>
+                    <div class="document-card">
+                        <div class="document-image">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="document-details">
+                            <span class="document-type type-book"><%= doc.type %></span>
+                            <h3><%= doc.titre %></h3>
+                            <% if(doc.type==='livre'){ %>
+                                <p><%= doc.auteur %></p>
+                            <% } else { %>
+                                <p>Volume : <%= doc.volume %></p>
+                            <% } %>
+                            
+                            <div class="tag-list">
+                                <span class="tag"><%= doc.theme %></span>
+                                <span class="tag"><%= doc.annee_publication %></span>
+                            </div>
+                            <% if(doc.exemplaires_en_rayon >0) {%>
+                                <div class="availability available">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Disponible</span>
+                                </div>
+                            <% } else{ %>
+                                <div class="availability unavailable">
+                                    <i class="fas fa-times-circle"></i>
+                                    <span>Non disponible</span>
+                                </div>
+                            <% } %>
+                            <div class="document-actions">
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-eye"></i>
+                                    <a href="/admin/documents/details/<%=doc.id %>" class="btnLink" style="text-decoration: none; color :white">Détails</a>
+                                </button>
+                                <% if (admin.role ==='principal'){ %>
+                                    <button class="btn btn-secondary">
+                                        <i class="fas fa-edit"></i>
+                                        <a href="/admin/edit/<%= doc.id %>"  style="text-decoration:none; color :black">Modifier</a>
+                                    </button>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
